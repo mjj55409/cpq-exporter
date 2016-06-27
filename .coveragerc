@@ -1,0 +1,5 @@
+[run]
+include = cpq_exporter/*
+omit = *migrations*, *tests*
+plugins =
+    django_coverage_plugin
