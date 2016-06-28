@@ -62,3 +62,5 @@ cpq_exporter/media/
 # Hitch directory
 tests/.hitch
 
+staticfiles/
+*.scss#
