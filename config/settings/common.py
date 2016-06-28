@@ -37,7 +37,7 @@ DJANGO_APPS = (
 )
 THIRD_PARTY_APPS = (
     'crispy_forms',  # Form layouts
-#    'allauth',  # registration
+    'allauth',  # registration
 #    'allauth.account',  # registration
 #    'allauth.socialaccount',  # registration
 )
@@ -101,7 +101,7 @@ MANAGERS = ADMINS
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
     # Raises ImproperlyConfigured exception if DATABASE_URL not in os.environ
-    'default': env.db('DATABASE_URL', default='postgres:///cpq_exporter'),
+    'default': env.db('DATABASE_URL', default='postgres:///cpqexporter'),
 }
 DATABASES['default']['ATOMIC_REQUESTS'] = True
 
