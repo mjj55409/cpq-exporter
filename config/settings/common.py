@@ -11,9 +11,12 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 from __future__ import absolute_import, unicode_literals
 
 import environ
+import sys
 
 ROOT_DIR = environ.Path(__file__) - 3  # (cpq_exporter/config/settings/common.py - 3 = cpq_exporter/)
 APPS_DIR = ROOT_DIR.path('cpq_exporter')
+
+sys.path.insert(0, ROOT_DIR('./apps'))
 
 env = environ.Env()
 
@@ -44,9 +47,8 @@ THIRD_PARTY_APPS = (
 
 # Apps specific for this project go here.
 LOCAL_APPS = (
-    # custom users app
     'cpq_exporter.users.apps.UsersConfig',
-    # Your stuff: custom apps go here
+    'exporter',
 )
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
