@@ -161,7 +161,8 @@ TEMPLATES = [
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
-                # Your stuff: custom template context processors go here
+
+                'cpq_exporter.context_processors.exporter_version'
             ],
         },
     },
