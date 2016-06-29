@@ -1,6 +1,6 @@
 from django.views.generic import ListView
-from exporter.models import Export
+from exporter import models
 
 
-class JobList (ListView):
-    model = Export
+class ProjectList (ListView):
+    model = models.Project

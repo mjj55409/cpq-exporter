@@ -1,21 +1,12 @@
 from django.conf import settings
 from django.db import models
-from model_utils.models import TimeStampedModel
 # from django.template.defaultfilters import slugify
 from django.utils.translation import ugettext_lazy as _
 
 
-class Repository (models.Model):
-    name = models.CharField(max_length=100, unique=True)
-    url = models.CharField(max_length=100, blank=False)
-
-    def __str__(self):
-        return self.name
-
-
 class KB (models.Model):
     name = models.CharField(max_length=30, unique=True)
-    repository = models.ForeignKey(Repository)
+    repository_url = models.CharField(max_length=100, blank=False)
 
     def __str__(self):
         return self.name
@@ -33,8 +24,11 @@ class Destination (models.Model):
     )
 
     name = models.CharField(max_length=30)
-    type = models.SmallIntegerField(choices=TYPE_CHOICES, default=0)
+    destination_type = models.SmallIntegerField(choices=TYPE_CHOICES, default=0)
     client = models.CharField(max_length=3, default='000', blank=False)
+
+    def __str__(self):
+        return self.name
 
 
 class DatabaseDestination (models.Model):
@@ -48,20 +42,49 @@ class DatabaseDestination (models.Model):
         (TYPE_JDBC, _('Java Connector'))
     )
 
-    destination = models.OneToOneField(Destination, primary_key=True)
+    destination = models.OneToOneField(Destination, on_delete=models.CASCADE, primary_key=True)
     database_type = models.SmallIntegerField(choices=TYPE_CHOICES, default=0)
     host = models.CharField(max_length=100, blank=True)
     port = models.CharField(max_length=7, blank=True)
     database_name = models.CharField(max_length=100, blank=False)
 
+    def __str__(self):
+        return self.database_name + '@' + self.host + ':' + self.port
+
 
 class SAPDestination (models.Model):
-    destination = models.OneToOneField(Destination, primary_key=True)
+    destination = models.OneToOneField(Destination, on_delete=models.CASCADE, primary_key=True)
     host = models.CharField(max_length=100, blank=False)
     sid = models.CharField(max_length=4, blank=False)
 
 
-class Export (TimeStampedModel):
-    name = models.CharField(max_length=80, unique=True, blank=False)
-    destination = models.ForeignKey(Destination)
-    kb = models.ManyToManyField(KB)
+class Project (models.Model):
+    name = models.CharField(max_length=40, unique=True)
+    description = models.TextField()
+
+    def __str__(self):
+        return self.name
+
+
+class Step (models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    name = models.CharField(max_length=40)
+    kb = models.ForeignKey(KB)
+
+    def __str__(self):
+        return self.name
+
+
+class Execution (models.Model):
+    project = models.ForeignKey(Project)
+    time_start = models.TimeField
+    time_end = models.TimeField
+    status = models.BooleanField
+
+
+class ExecutionStep (models.Model):
+    execution = models.ForeignKey(Execution)
+    step = models.ForeignKey(Step)
+    time_start = models.TimeField
+    time_end = models.TimeField
+    status = models.BooleanField
