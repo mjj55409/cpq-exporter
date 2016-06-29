@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 class Repository (models.Model):
     name = models.CharField(max_length=100, unique=True)
-    url = models.URLField()
+    url = models.CharField(max_length=100, blank=False)
 
     def __str__(self):
         return self.name
@@ -62,5 +62,6 @@ class SAPDestination (models.Model):
 
 
 class Export (TimeStampedModel):
+    name = models.CharField(max_length=80, unique=True, blank=False)
     destination = models.ForeignKey(Destination)
     kb = models.ManyToManyField(KB)

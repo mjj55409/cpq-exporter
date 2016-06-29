@@ -1,3 +1,6 @@
-from django.shortcuts import render
+from django.views.generic import ListView
+from exporter.models import Export
 
-# Create your views here.
+
+class JobList (ListView):
+    model = Export
