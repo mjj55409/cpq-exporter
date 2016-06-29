@@ -13,7 +13,7 @@ from exporter.views import ProjectList
 
 urlpatterns = [
 #    url(r'^$', TemplateView.as_view(template_name='pages/home.html'), name='home'),
-    url(r'^$',  ProjectList.as_view(template_name='exporter/jobs/index.html'), name='home'),
+    url(r'^$',  ProjectList.as_view(), name='home'),
     url(r'^about/$', TemplateView.as_view(template_name='pages/about.html'), name='about'),
 
     # Django Admin, use {% url 'admin:index' %}
@@ -24,8 +24,7 @@ urlpatterns = [
     url(r'^users/', include('cpq_exporter.users.urls', namespace='users')),
     url(r'^accounts/', include('allauth.urls')),
 
-    # Your stuff: custom urls includes go here
-
+    url(r'^exporter/', include('exporter.urls')),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
