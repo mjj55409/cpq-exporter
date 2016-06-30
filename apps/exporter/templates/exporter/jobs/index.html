@@ -13,13 +13,17 @@
       </tr>
     </thead>
     <tbody>
-      {% for project in object_list %}
+      {% for export_jobs in object_list %}
       <tr>
-        <td>*</td>
-        <td><a href="{%  url 'project-detail' pk=project.pk %}">{{ project.name }}</a></td>
-        <td>xx/xx/xx</td>
-        <td>xx/xx/xx</td>
-        <td>14s</td>
+        {% if export_jobs.status %}
+        <td>--</td>
+        {% else %}
+        <td>XX</td>
+        {% endif %}
+        <td><a href="{%  url 'project-detail' pk=export_jobs.project.id %}">{{export_jobs.project.name }}</a></td>
+        <td>{{ export_jobs.time_end }}</td>
+        <td></td>
+        <td>{{ export_jobs.duration }}s</td>
       </tr>
       {% endfor %}
     </tbody>

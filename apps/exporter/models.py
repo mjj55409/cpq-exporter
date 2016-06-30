@@ -66,7 +66,7 @@ class Project (models.Model):
         return self.name
 
 
-class Step (models.Model):
+class ProjectStep (models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     name = models.CharField(max_length=40)
     kb = models.ForeignKey(KB)
@@ -77,14 +77,15 @@ class Step (models.Model):
 
 class Execution (models.Model):
     project = models.ForeignKey(Project)
-    time_start = models.TimeField
-    time_end = models.TimeField
-    status = models.BooleanField
+    time_start = models.DateTimeField()
+    time_end = models.DateTimeField()
+    duration = models.IntegerField()
+    export_status = models.BooleanField()
 
 
 class ExecutionStep (models.Model):
     execution = models.ForeignKey(Execution)
-    step = models.ForeignKey(Step)
-    time_start = models.TimeField
-    time_end = models.TimeField
-    status = models.BooleanField
+    step = models.ForeignKey(ProjectStep)
+    time_start = models.DateTimeField()
+    time_end = models.DateTimeField()
+    status = models.BooleanField()
