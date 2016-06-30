@@ -15,10 +15,14 @@
     <tbody>
       {% for export_jobs in object_list %}
       <tr>
-        {% if export_jobs.status %}
-        <td>--</td>
+        {% if export_jobs.export_status %}
+        <td id="light">
+          <span class="active" id="green" data-toggle="tooltip" title="Export succeeded."></span>
+        </td>
         {% else %}
-        <td>XX</td>
+        <td id="light">
+          <span class="active" id="red" data-toggle="tooltip" title="Export failed."></span>
+        </td>
         {% endif %}
         <td><a href="{%  url 'project-detail' pk=export_jobs.project.id %}">{{export_jobs.project.name }}</a></td>
         <td>{{ export_jobs.time_end }}</td>

@@ -36,8 +36,44 @@ code {
   border-color: #eed3d7;
   color: #b94a48; }
 
-.nav.navbar-nav.pull-xs-right {
-  float: none !important; }
+/*! Light */
+#light {
+  background-color: #000;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+  overflow: hidden;
+  padding: 0 0 4px;
+  width: 40px; }
+
+#light span {
+  border-radius: 50px;
+  display: block;
+  height: 30px;
+  margin: 4px auto 0;
+  opacity: .5;
+  width: 30px; }
+
+/*! Light colours */
+#red {
+  background-color: red; }
+
+#orange {
+  background-color: orange; }
+
+#green {
+  background-color: green; }
+
+/*! Active states */
+#light span.active {
+  opacity: 1; }
+
+#light #red.active {
+  box-shadow: 0 0 10px red; }
+
+#light #orange.active {
+  box-shadow: 0 0 10px orange; }
+
+#light #green.active {
+  box-shadow: 0 0 10px green; }
 
 [hidden][style="display: block;"] {
   display: block !important; }
