@@ -44,11 +44,10 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             {% if request.user.is_authenticated %}
-            <li class="active"><a href="{% url 'home' %}">Dashboard</a></li>
+            <li><a href="{% url 'home' %}">Dashboard</a></li>
             {% if request.user.is_superuser %}
             <li><a href="{% url 'admin:index' %}">Settings</a></li>
             {% endif %}
-            <li><a href="{% url 'about' %}">About</a></li>
           </ul>
 
           <ul class="nav navbar-nav navbar-right">
@@ -68,17 +67,13 @@
             {% endif %}
           </ul>
         </div>
-        
-        
       </div>
     </nav>
 
     <!-- Begin page content -->
     <div class="container">
 
-      {% block content %}
-      <p>Use this file, blah, blah, blah.</p>
-      {% endblock content %}
+      {% block content %}{% endblock content %}
 
     </div>
 
@@ -87,7 +82,7 @@
     <!-- Fixed Footer -->
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">CPQ Exporter Version {{ exporter_version }}</p>
+        <p class="pull-right text-muted"><a href="{% url 'about' %}#">CPQ Exporter Version {{ exporter_version }}</a></p>
       </div>
     </footer>
 
