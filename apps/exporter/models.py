@@ -60,27 +60,28 @@ class SAPDestination (models.Model):
 
 class Project (models.Model):
     name = models.CharField(max_length=40, unique=True)
-    description = models.TextField()
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
 
 
 class ProjectStep (models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    name = models.CharField(max_length=40)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE, related_name='steps')
+    step_number = models.PositiveSmallIntegerField(null=False, default=1)
+    name = models.CharField(max_length=40, blank=True)
     kb = models.ForeignKey(KB)
 
     def __str__(self):
-        return self.name
+        return self.project.name + '.' + self.kb.name
 
 
 class Execution (models.Model):
     project = models.ForeignKey(Project)
-    time_start = models.DateTimeField()
-    time_end = models.DateTimeField()
-    duration = models.IntegerField()
-    export_status = models.BooleanField()
+    time_start = models.DateTimeField(null=True, blank=True)
+    time_end = models.DateTimeField(null=True, blank=True)
+    duration = models.DurationField(blank=True, null=True)
+    export_status = models.BooleanField(blank=True)
 
 
 class ExecutionStep (models.Model):
